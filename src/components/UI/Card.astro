@@ -7,29 +7,42 @@ export interface Props {
   };
   href?: string;
   className?: string;
+  imageLayout?: 'top' | 'background';
 }
 
-const { title, image, href, className = "" } = Astro.props;
+const { title, image, href, className = "", imageLayout = 'top' } = Astro.props;
 const Element = href ? "a" : "div";
 ---
 
 <Element
   href={href}
-  class={`card relative overflow-hidden group ${className}`}
+  aria-label={href ? title : undefined}
+  class:list={[
+    'card group overflow-hidden',
+    { 'relative': imageLayout === 'background' },
+    className
+  ]}
 >
   {image && (
-    <!-- full-cover image -->
-    <div class="absolute inset-0 overflow-hidden">
+    <div class:list={[
+      'overflow-hidden',
+      { 'absolute inset-0': imageLayout === 'background' }
+    ]}>
       <img
         src={image.src}
         alt={image.alt}
-        class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+        class:list={[
+          "w-full object-cover object-center transition-transform duration-300 group-hover:scale-105",
+          { 'h-full': imageLayout === 'background', 'h-auto': imageLayout === 'top' }
+        ]}
       />
     </div>
   )}
 
-  <!-- konten di atas gambar -->
-  <div class="relative p-5">
+  <div class:list={[
+    'p-5',
+    { 'relative': imageLayout === 'background' }
+  ]}>
     <h3 class="mb-2 text-xl font-bold">{title}</h3>
     <div class="text-gray-700">
       <slot />

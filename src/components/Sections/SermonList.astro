@@ -66,10 +66,11 @@ const sermons = allSermons
           )}
           
           <p class="text-gray-700 mb-4">{sermon.data.summary}</p>
-          
-          <a href={`/sermons/${sermon.slug}`} class="text-primary-600 font-medium hover:text-primary-700">
+
+          <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700">
             Listen Now →
-          </a>
+          </p>
+          
         </Card>
       ))}
     </div>

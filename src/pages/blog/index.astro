@@ -155,10 +155,10 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))];
                     </div>
                   )
                 }
-                
-                <a href={`/blog/${post.slug}`} class="text-primary-600 font-medium hover:text-primary-700">
+
+                <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700">
                   Read More →
-                </a>
+                </p>
               </Card>
             ))}
           </div>
