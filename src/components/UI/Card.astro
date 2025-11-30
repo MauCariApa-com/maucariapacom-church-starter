@@ -5,18 +5,24 @@ export interface Props {
     src: string;
     alt: string;
   };
+  dataSeries?: string;
+  dataSpeaker?: string;
+  dataDate?: string;
   href?: string;
   className?: string;
   imageLayout?: 'top' | 'background';
 }
 
-const { title, image, href, className = "", imageLayout = 'top' } = Astro.props;
+const { title, image, href, className = "", imageLayout = 'top', dataSeries, dataSpeaker, dataDate} = Astro.props;
 const Element = href ? "a" : "div";
 ---
 
 <Element
   href={href}
   aria-label={href ? title : undefined}
+  data-series={dataSeries}
+  data-speaker={dataSpeaker}
+  data-date={dataDate}
   class:list={[
     'card group overflow-hidden',
     { 'relative': imageLayout === 'background' },

@@ -140,9 +140,9 @@ const speakers = [...new Set(sermons.map(sermon => sermon.speaker.displayName))]
                 }}
                 href={`/sermons/${sermon.sermonID}`}
                 className="sermon-card"
-                data-series={sermon.series?.title ?? "No series"}
-                data-speaker={sermon.speaker.displayName}
-                data-date={new Date(sermon.preachDate).toISOString().slice(0, 10)}
+                dataSeries={sermon.series?.title ?? "No series"}
+                dataSpeaker={sermon.speaker.displayName}
+                dataDate={new Date(sermon.preachDate).toISOString().slice(0, 10)}
               >
                 <div class="mb-3 flex items-center text-gray-600">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
