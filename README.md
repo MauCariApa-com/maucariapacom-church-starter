@@ -41,7 +41,6 @@ maucariapacom-church-starter/
 │   │   ├── Sections/     # Page sections (Hero, Events, etc.)
 │   │   └── UI/           # UI components (Button, Card, SEO)
 │   ├── content/          # Astro Content Collections
-│   │   ├── config.ts     # Collection schemas
 │   │   ├── staff/        # Staff member profiles
 │   │   ├── events/       # Church events
 │   │   ├── sermons/      # Sermon content
@@ -50,7 +49,8 @@ maucariapacom-church-starter/
 │   │   └── siteInfo/     # Site configuration content
 │   ├── layouts/          # Page layouts
 │   ├── pages/            # Astro pages
-│   └── utils/            # Utility functions
+│   ├── utils/            # Utility functions
+│   └── content.config.ts         # Collection schemas
 ├── astro.config.mjs
 ├── tailwind.config.cjs
 └── tsconfig.json
@@ -60,7 +60,7 @@ maucariapacom-church-starter/
 
 ### Prerequisites
 
-- Node.js 18 or later
+- Node.js 22 or later
 - npm or yarn
 
 ### Installation
