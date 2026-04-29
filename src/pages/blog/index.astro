@@ -122,7 +122,7 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))];
                   src: post.data.image.url,
                   alt: post.data.image.alt
                 }}
-                href={`/blog/${post.slug}`}
+                href={`/blog/${post.id}`}
                 className="blog-card"
                 data-tags={post.data.tags.join(',')}
                 data-author={post.data.author}
@@ -172,7 +172,7 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))];
     </div>
   </section>
   
-  <script>
+  <script is:inline>
     // Filter functionality
     document.addEventListener('DOMContentLoaded', () => {
       const searchInput = document.getElementById('search');

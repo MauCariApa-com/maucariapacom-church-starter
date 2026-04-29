@@ -1,9 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* 1. Define your Theme Variables */
+@theme {
+  /* Fonts */
+  --font-sans: "Source Sans Pro", ui-sans-serif, system-ui;
+  --font-serif: "Playfair Display", ui-serif, Georgia;
 
+  /* Colors - Replace these hex codes with your actual brand colors */
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+
+  --color-secondary-500: #64748b;
+  --color-secondary-600: #475569;
+  --color-secondary-700: #334155;
+
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+}
+
+/* 3. Global Styles (Base Layer) */
 @layer base {
   html {
     @apply scroll-smooth;
@@ -17,31 +35,15 @@
     @apply font-serif font-bold text-gray-900;
   }
 
-  h1 {
-    @apply text-4xl md:text-5xl;
-  }
-
-  h2 {
-    @apply text-3xl md:text-4xl;
-  }
-
-  h3 {
-    @apply text-2xl md:text-3xl;
-  }
-
-  h4 {
-    @apply text-xl md:text-2xl;
-  }
-
-  h5 {
-    @apply text-lg md:text-xl;
-  }
-
-  h6 {
-    @apply text-base md:text-lg;
-  }
+  h1 { @apply text-4xl md:text-5xl; }
+  h2 { @apply text-3xl md:text-4xl; }
+  h3 { @apply text-2xl md:text-3xl; }
+  h4 { @apply text-xl md:text-2xl; }
+  h5 { @apply text-lg md:text-xl; }
+  h6 { @apply text-base md:text-lg; }
 }
 
+/* 4. Custom Components */
 @layer components {
   .container {
     @apply px-4 mx-auto max-w-7xl;
@@ -72,11 +74,11 @@
   }
 }
 
+/* 5. Standard CSS (No @apply needed) */
 details > summary::-webkit-details-marker {
   display: none;
 }
 
-/* accordion effect */
 details > summary svg {
   transition: transform 0.2s ease;
 }

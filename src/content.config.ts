@@ -1,7 +1,9 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';
 
 const staffCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/staff" }),
   schema: z.object({
     name: z.string(),
     title: z.string(), // e.g., "Senior Pastor", "Deaconess"
@@ -15,7 +17,7 @@ const staffCollection = defineCollection({
 });
 
 const eventsCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/events" }),
   schema: z.object({
     title: z.string(),
     date: z.date(), // Event start date
@@ -32,7 +34,7 @@ const eventsCollection = defineCollection({
 });
 
 const sermonsCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/sermons" }),
   schema: z.object({
     title: z.string(),
     slug: z.string().optional(), // Auto-generated if not provided
@@ -50,7 +52,7 @@ const sermonsCollection = defineCollection({
 });
 
 const ministriesCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/ministries" }),
   schema: z.object({
     name: z.string(),
     logo: z.string().startsWith('/uploads/ministries/').optional(),
@@ -64,7 +66,7 @@ const ministriesCollection = defineCollection({
 });
 
 const blogCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     slug: z.string().optional(),
@@ -81,7 +83,7 @@ const blogCollection = defineCollection({
 });
 
 const siteInfoCollection = defineCollection({
-  type: 'content', // Could be 'data' if only frontmatter is needed
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/siteInfo" }),
   schema: z.object({
     title: z.string(), // For identifying the content block
   }),

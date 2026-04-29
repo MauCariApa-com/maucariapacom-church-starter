@@ -131,7 +131,7 @@ const speakers = [...new Set(sermons.map(sermon => sermon.data.speaker))];
                   src: sermon.data.image || "/uploads/sermon-placeholder.webp",
                   alt: sermon.data.title
                 }}
-                href={`/sermons/${sermon.slug}`}
+                href={`/sermons/${sermon.id}`}
                 className="sermon-card"
                 dataSeries={sermon.data.series || ""}
                 dataSpeaker={sermon.data.speaker}
@@ -187,7 +187,7 @@ const speakers = [...new Set(sermons.map(sermon => sermon.data.speaker))];
     </div>
   </section>
   
-  <script>
+  <script is:inline>
     // Filter functionality
     document.addEventListener('DOMContentLoaded', () => {
       const searchInput = document.getElementById('search');

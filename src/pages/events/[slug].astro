@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostLayout from "../../layouts/PostLayout.astro";
 import Button from "../../components/UI/Button.astro";
-import { getCollection } from "astro:content";
+import { getCollection , render } from "astro:content";
 import { formatDate } from "../../utils/dateUtils";
 
 // Generate static paths for all events
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
     });
 
     return eventEntries.map(entry => ({
-      params: { slug: entry.slug },
+      params: { slug: entry.id },
       props: { entry },
     }));
   } catch (error) {
@@ -24,7 +24,7 @@ export async function getStaticPaths() {
 
 // Get the event data
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 // Format the dates for display
 const formattedDate = formatDate(entry.data.date);

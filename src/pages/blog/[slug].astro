@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostLayout from "../../layouts/PostLayout.astro";
-import { getCollection } from "astro:content";
+import { getCollection , render } from "astro:content";
 
 // Generate static paths for all blog posts
 export async function getStaticPaths() {
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
     });
 
     return blogEntries.map(entry => ({
-      params: { slug: entry.slug },
+      params: { slug: entry.id },
       props: { entry },
     }));
   } catch (error) {
@@ -22,10 +22,10 @@ export async function getStaticPaths() {
 
 // Get the blog post data
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 // Find related posts (posts with matching tags)
-let relatedPosts = [];
+let relatedPosts: any[] = [];
 try {
   const allPosts = await getCollection("blog", ({ data }) => {
     return import.meta.env.PROD ? !data.draft : true;
@@ -37,7 +37,7 @@ try {
   if (postTags.length > 0) {
     relatedPosts = allPosts
       .filter(post => 
-        post.slug !== entry.slug && // Not the current post
+        post.id !== entry.id && // Not the current post
         post.data.tags.some(tag => postTags.includes(tag)) // Has at least one matching tag
       )
       .sort((a, b) => {
@@ -120,7 +120,7 @@ try {
           <h2 class="text-2xl font-bold mb-6">Related Posts</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedPosts.map(post => (
-              <a href={`/blog/${post.slug}`} class="block bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+              <a href={`/blog/${post.id}`} class="block bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
                 <h3 class="font-bold mb-2">{post.data.title}</h3>
                 <p class="text-sm text-gray-600 mb-2">By {post.data.author}</p>
                 <p class="text-primary-600 text-sm font-medium">Read More →</p>

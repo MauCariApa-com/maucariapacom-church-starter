@@ -47,7 +47,7 @@ const pastEvents = allEvents.filter(event => isPastDate(event.data.date))
               src: event.data.image,
               alt: event.data.title
             }}
-            href={`/events/${event.slug}`}
+            href={`/events/${event.id}`}
           >
             <div class="mb-3 flex items-center text-gray-600">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,7 +104,7 @@ const pastEvents = allEvents.filter(event => isPastDate(event.data.date))
                   src: event.data.image,
                   alt: event.data.title
                 }}
-                href={`/events/${event.slug}`}
+                href={`/events/${event.id}`}
                 className="opacity-90 hover:opacity-100"
               >
                 <div class="mb-3 flex items-center text-gray-600">

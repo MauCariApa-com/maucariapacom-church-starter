@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostLayout from "../../layouts/PostLayout.astro";
 import Button from "../../components/UI/Button.astro";
-import { getCollection } from "astro:content";
+import { getCollection , render } from "astro:content";
 import { formatDate } from "../../utils/dateUtils";
 
 // Generate static paths for all sermons
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
     });
 
     return sermonEntries.map(entry => ({
-      params: { slug: entry.slug },
+      params: { slug: entry.id },
       props: { entry },
     }));
   } catch (error) {
@@ -24,13 +24,13 @@ export async function getStaticPaths() {
 
 // Get the sermon data
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 // Format the date for display
 const formattedDate = formatDate(entry.data.date);
 
 // Find related sermons from the same series (if available)
-let relatedSermons = [];
+let relatedSermons: any[] = [];
 if (entry.data.series) {
   try {
     const allSermons = await getCollection("sermons", ({ data }) => {
@@ -39,7 +39,7 @@ if (entry.data.series) {
     
     relatedSermons = allSermons
       .filter(sermon => 
-        sermon.data.series === entry.data.series && sermon.slug !== entry.slug
+        sermon.data.series === entry.data.series && sermon.id !== entry.id
       )
       .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
       .slice(0, 3);
@@ -131,7 +131,8 @@ if (entry.data.series) {
               <iframe 
                 src={entry.data.videoUrl} 
                 title={entry.data.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"  
                 allowfullscreen
                 class="w-full h-full"
               ></iframe>
@@ -165,7 +166,7 @@ if (entry.data.series) {
           <h2 class="text-2xl font-bold mb-6">More From This Series</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedSermons.map(sermon => (
-              <a href={`/sermons/${sermon.slug}`} class="block bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+              <a href={`/sermons/${sermon.id}`} class="block bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
                 <h3 class="font-bold mb-2">{sermon.data.title}</h3>
                 <p class="text-sm text-gray-600 mb-2">{formatDate(sermon.data.date)}</p>
                 <p class="text-primary-600 text-sm font-medium">Listen/Watch →</p>
