@@ -1,0 +1,114 @@
+---
+import Button from "../UI/Button.astro";
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../../utils/dateUtils";
+
+export interface Props {
+  post: CollectionEntry<"blog">;
+  shareUrl?: string;
+}
+
+const { post, shareUrl } = Astro.props;
+const formattedDate = formatDate(post.data.pubDate);
+const encodedTitle = encodeURIComponent(post.data.title);
+const encodedUrl = shareUrl || "";
+---
+
+<div class="bg-gray-50 p-6 rounded-lg shadow-sm sticky top-24">
+  <h2 class="font-bold mb-4">Post Information</h2>
+
+  <div class="space-y-4 mb-6">
+    <div>
+      <h4 class="font-bold text-gray-700 mb-1">Date</h4>
+      <p>{formattedDate}</p>
+    </div>
+
+    <div>
+      <h4 class="font-bold text-gray-700 mb-1">Author</h4>
+      <p>{post.data.author}</p>
+    </div>
+
+    {
+      post.data.tags && post.data.tags.length > 0 && (
+        <div>
+          <h4 class="font-bold text-gray-700 mb-2">Tags</h4>
+          <div class="flex flex-wrap gap-2">
+            {post.data.tags.map((tag) => (
+              <span class="px-2 py-1 text-xs font-medium text-primary-700 bg-primary-100 rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="mb-6">
+    <h4 class="font-bold text-gray-700 mb-3">Share This Post</h4>
+    <div class="flex space-x-4">
+      <a
+        href={`https://facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-gray-600 hover:text-blue-600 transition-colors"
+        aria-label="Share on Facebook"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+          ></path>
+        </svg>
+      </a>
+
+      <a
+        href={`https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-gray-600 hover:text-blue-400 transition-colors"
+        aria-label="Share on Twitter"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.03 10.03 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+          ></path>
+        </svg>
+      </a>
+
+      <a
+        href={`mailto:?subject=${encodedTitle}&body=${encodeURIComponent(`I thought you might be interested in this article: ${shareUrl}`)}`}
+        class="text-gray-600 hover:text-red-500 transition-colors"
+        aria-label="Share via Email"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          ></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="flex flex-col space-y-3">
+    <Button href="/blog" variant="outline"> Back to All Posts </Button>
+  </div>
+</div>

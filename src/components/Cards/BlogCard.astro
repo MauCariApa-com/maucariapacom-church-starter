@@ -1,0 +1,67 @@
+---
+import { formatDate } from '../../utils/dateUtils';
+import Button from '../UI/Button.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'blog'>;
+  className?: string;
+}
+
+const { post, className = '' } = Astro.props;
+const href = `/blog/${post.id}`;
+---
+
+<div class:list={['card group overflow-hidden flex flex-col h-full', className]} data-tags={post.data.tags.join(',')} data-author={post.data.author} data-date={post.data.pubDate.toISOString().slice(0, 10)}>
+  {post.data.image && (
+    <a href={href} class="overflow-hidden aspect-video block">
+      <img
+        src={post.data.image.url}
+        alt={post.data.image.alt}
+        class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+      />
+    </a>
+  )}
+
+  <div class="p-5 flex flex-col flex-1">
+    <a href={href} class="block">
+      <h3 class="mb-2 text-xl font-bold group-hover:text-primary-600 transition-colors">{post.data.title}</h3>
+    </a>
+
+    <div class="text-gray-700 flex flex-col flex-1">
+      <div class="mb-3 flex items-center text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span>{formatDate(post.data.pubDate)}</span>
+      </div>
+
+      <div class="mb-3 flex items-center text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <span>{post.data.author}</span>
+      </div>
+
+      <p class="text-gray-700 mb-4 line-clamp-3">{post.data.description}</p>
+
+      {
+        post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-4">
+            {post.data.tags.map((tag) => (
+              <span class="px-2 py-1 text-xs font-medium text-primary-700 bg-primary-100 rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="mt-auto">
+        <Button href={href} variant="primary" size="sm">
+          Read More
+        </Button>
+      </div>
+    </div>
+  </div>
+</div>

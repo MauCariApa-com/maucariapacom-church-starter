@@ -1,0 +1,31 @@
+---
+import Button from '../UI/Button.astro';
+
+export interface Props {
+  href: string;
+  title: string;
+  meta?: string;
+  linkText?: string;
+  className?: string;
+}
+
+const {
+  href,
+  title,
+  meta,
+  linkText = 'Read More',
+  className = '',
+} = Astro.props;
+---
+
+<div class:list={['bg-gray-50 rounded-lg p-4 flex flex-col h-full', className]}>
+  <a href={href} class="block mb-2">
+    <h3 class="font-bold group-hover:text-primary-600 transition-colors">{title}</h3>
+  </a>
+  {meta && <p class="text-sm text-gray-600 mb-3">{meta}</p>}
+  <div class="mt-auto">
+    <Button href={href} variant="outline" size="sm">
+      {linkText}
+    </Button>
+  </div>
+</div>

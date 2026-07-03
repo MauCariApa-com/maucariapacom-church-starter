@@ -1,0 +1,66 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Button from '../UI/Button.astro';
+
+export interface Props {
+  ministry: CollectionEntry<'ministries'>;
+  className?: string;
+}
+
+const { ministry, className = '' } = Astro.props;
+const href = `/ministries/${ministry.id}`;
+---
+
+<div class:list={['card group overflow-hidden flex flex-col h-full', className]}>
+  {
+    ministry.data.logo && (
+      <a href={href} class="overflow-hidden aspect-video block">
+        <img
+          src={ministry.data.logo}
+          alt={ministry.data.name}
+          class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+        />
+      </a>
+    )
+  }
+
+  <div class="p-5 flex flex-col flex-1">
+    <a href={href} class="block">
+      <h3 class="mb-2 text-xl font-bold group-hover:text-primary-600 transition-colors">{ministry.data.name}</h3>
+    </a>
+
+    <p class="text-gray-700 mb-4 line-clamp-3">
+      {ministry.data.summary}
+    </p>
+
+    <div class="mt-auto space-y-2 text-sm text-gray-600">
+      {
+        ministry.data.coordinator && (
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span>Coordinator: {ministry.data.coordinator}</span>
+          </div>
+        )
+      }
+
+      {
+        ministry.data.schedule && (
+          <div class="flex items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{ministry.data.schedule}</span>
+          </div>
+        )
+      }
+    </div>
+
+    <div class="mt-4">
+      <Button href={href} variant="primary" size="sm">
+        Learn More
+      </Button>
+    </div>
+  </div>
+</div>

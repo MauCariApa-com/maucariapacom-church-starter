@@ -1,0 +1,67 @@
+---
+import { formatDate } from '../../utils/dateUtils';
+import Button from '../UI/Button.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  event: CollectionEntry<'events'>;
+  variant?: 'upcoming' | 'past';
+  className?: string;
+}
+
+const { event, variant = 'upcoming', className = '' } = Astro.props;
+const href = `/events/${event.id}`;
+const ctaText = variant === 'past' ? 'View Details' : 'Learn More';
+---
+
+<div class:list={['card group overflow-hidden flex flex-col h-full', className]}>
+  <a href={href} class="overflow-hidden aspect-video block">
+    <img
+      src={event.data.image}
+      alt={event.data.title}
+      class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+    />
+  </a>
+
+  <div class="p-5 flex flex-col flex-1">
+    <a href={href} class="block">
+      <h3 class="mb-2 text-xl font-bold group-hover:text-primary-600 transition-colors">{event.data.title}</h3>
+    </a>
+
+    <div class="text-gray-700 flex flex-col flex-1">
+      <div class="mb-3 flex items-center text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span>{formatDate(event.data.date)}</span>
+      </div>
+
+      {
+        variant === 'upcoming' && event.data.time && (
+          <div class="mb-3 flex items-center text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{event.data.time}</span>
+          </div>
+        )
+      }
+
+      <div class="mb-3 flex items-center text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span>{event.data.location}</span>
+      </div>
+
+      <p class="text-gray-700 mb-4 line-clamp-3">{event.data.summary}</p>
+
+      <div class="mt-auto">
+        <Button href={href} variant="primary" size="sm">
+          {ctaText}
+        </Button>
+      </div>
+    </div>
+  </div>
+</div>

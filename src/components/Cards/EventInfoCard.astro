@@ -1,0 +1,81 @@
+---
+import Button from "../UI/Button.astro";
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../../utils/dateUtils";
+
+export interface Props {
+  event: CollectionEntry<"events">;
+}
+
+const { event } = Astro.props;
+
+const formattedDate = formatDate(event.data.date);
+const formattedEndDate = event.data.endDate
+  ? formatDate(event.data.endDate)
+  : null;
+const isFutureEvent = new Date(event.data.date) > new Date();
+---
+
+<div class="bg-gray-50 p-6 rounded-lg shadow-sm sticky top-24">
+  <h3 class="font-bold mb-4">Event Information</h3>
+
+  <div class="space-y-4 mb-6">
+    <div>
+      <h4 class="font-bold text-gray-700 mb-1">Date & Time</h4>
+      <p>
+        {
+          formattedEndDate && formattedEndDate !== formattedDate
+            ? `${formattedDate} - ${formattedEndDate}`
+            : formattedDate
+        }
+      </p>
+      {event.data.time && <p>{event.data.time}</p>}
+    </div>
+
+    <div>
+      <h4 class="font-bold text-gray-700 mb-1">Location</h4>
+      <p>{event.data.location}</p>
+    </div>
+
+    {
+      event.data.tags && event.data.tags.length > 0 && (
+        <div>
+          <h4 class="font-bold text-gray-700 mb-2">Tags</h4>
+          <div class="flex flex-wrap gap-2">
+            {event.data.tags.map((tag) => (
+              <span class="px-2 py-1 text-xs font-medium text-primary-700 bg-primary-100 rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="flex flex-col space-y-3">
+    {
+      isFutureEvent &&
+      event.data.registrationRequired &&
+      event.data.registrationLink ? (
+        <Button
+          href={event.data.registrationLink}
+          target="_blank"
+          variant="primary"
+        >
+          Register Now
+        </Button>
+      ) : isFutureEvent && event.data.registrationRequired ? (
+        <Button href="/contact?subject=Event+Registration" variant="primary">
+          Contact Us to Register
+        </Button>
+      ) : null
+    }
+
+    <Button href="/events" variant="outline"> Back to All Events </Button>
+
+    <Button href="/contact?subject=Event+Inquiry" variant="outline">
+      Have a Question?
+    </Button>
+  </div>
+</div>

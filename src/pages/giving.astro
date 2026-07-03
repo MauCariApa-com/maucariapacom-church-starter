@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/Sections/PageHeader.astro";
 import Button from "../components/UI/Button.astro";
+import GivingCard from "../components/Cards/GivingCard.astro";
+import InfoCard from "../components/Cards/InfoCard.astro";
 ---
 
 <BaseLayout
@@ -62,48 +64,28 @@ import Button from "../components/UI/Button.astro";
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-primary-100 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">During Services</h3>
-          <p class="text-gray-700 mb-6">
-            Giving envelopes are available in the pew racks. You can place your cash or check offering in the collection plate during Sunday services.
-          </p>
-        </div>
+        <GivingCard title="During Services" description="Giving envelopes are available in the pew racks. You can place your cash or check offering in the collection plate during Sunday services.">
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </GivingCard>
         
-        <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-primary-100 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">By Mail</h3>
-          <p class="text-gray-700 mb-6">
-            You can mail your check to:<br>
-            Church Name<br>
-            123 Main Street<br>
-            Anytown, ST 12345
-          </p>
-        </div>
+        <GivingCard title="By Mail" description="You can mail your check to:<br>Church Name<br>123 Main Street<br>Anytown, ST 12345">
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </GivingCard>
         
-        <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-primary-100 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Online</h3>
-          <p class="text-gray-700 mb-6">
-            Give securely online through our website. You can make a one-time gift or set up recurring donations.
-          </p>
-          
-          <Button href="#online-giving" variant="primary">
-            Give Online
-          </Button>
-        </div>
+        <GivingCard
+          title="Online"
+          description="Give securely online through our website. You can make a one-time gift or set up recurring donations."
+          ctaHref="#online-giving"
+          ctaText="Give Online"
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+          </svg>
+        </GivingCard>
       </div>
     </div>
   </section>
@@ -254,35 +236,32 @@ import Button from "../components/UI/Button.astro";
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <div class="bg-white p-8 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-3">Planned Giving</h3>
+        <InfoCard title="Planned Giving" className="bg-white p-8 rounded-lg shadow-sm">
           <p class="text-gray-700 mb-4">
             Include the church in your will or estate plan to leave a lasting legacy. We can help you explore options that align with your financial and charitable goals.
           </p>
           <a href="/contact" class="text-primary-600 font-medium hover:text-primary-700">
             Learn More →
           </a>
-        </div>
+        </InfoCard>
         
-        <div class="bg-white p-8 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-3">In-Kind Donations</h3>
+        <InfoCard title="In-Kind Donations" className="bg-white p-8 rounded-lg shadow-sm">
           <p class="text-gray-700 mb-4">
             Donate items needed for our ministries and outreach programs. Check our current needs list or contact the church office to learn about specific donation opportunities.
           </p>
           <a href="/contact" class="text-primary-600 font-medium hover:text-primary-700">
             View Current Needs →
           </a>
-        </div>
+        </InfoCard>
         
-        <div class="bg-white p-8 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-3">Volunteer</h3>
+        <InfoCard title="Volunteer" className="bg-white p-8 rounded-lg shadow-sm">
           <p class="text-gray-700 mb-4">
             Give your time and talents to support our various ministries. From teaching Sunday School to helping with community outreach, there are many ways to serve.
           </p>
           <a href="/ministries" class="text-primary-600 font-medium hover:text-primary-700">
             Find Volunteer Opportunities →
           </a>
-        </div>
+        </InfoCard>
       </div>
     </div>
   </section>
@@ -291,9 +270,7 @@ import Button from "../components/UI/Button.astro";
   <section class="py-16">
     <div class="container">
       <div class="max-w-3xl mx-auto">
-        <div class="bg-white p-8 rounded-lg shadow-md">
-          <h2 class="text-2xl font-bold mb-6">Tax Information</h2>
-          
+        <InfoCard title="Tax Information" className="bg-white p-8 rounded-lg shadow-md">
           <p class="text-gray-700 mb-4">
             Church Name is a 501(c)(3) non-profit organization. All donations are tax-deductible to the extent allowed by law.
           </p>
@@ -309,7 +286,7 @@ import Button from "../components/UI/Button.astro";
           <p class="text-sm text-gray-600 italic">
             Tax ID: 12-3456789
           </p>
-        </div>
+        </InfoCard>
       </div>
     </div>
   </section>

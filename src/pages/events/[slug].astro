@@ -1,37 +1,26 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PostLayout from "../../layouts/PostLayout.astro";
-import Button from "../../components/UI/Button.astro";
-import { getCollection } from "astro:content";
-import { formatDate } from "../../utils/dateUtils";
+import PageHeader from "../../components/Sections/PageHeader.astro";
+import EventInfoCard from "../../components/Cards/EventInfoCard.astro";
+import { getCollection, render } from "astro:content";
 
-// Generate static paths for all events
 export async function getStaticPaths() {
   try {
     const eventEntries = await getCollection("events", ({ data }) => {
       return import.meta.env.PROD ? !data.draft : true;
     });
 
-    return eventEntries.map(entry => ({
-      params: { slug: entry.slug },
+    return eventEntries.map((entry) => ({
+      params: { slug: entry.id },
       props: { entry },
     }));
   } catch (error) {
-    // If the collection doesn't exist yet, return an empty array
     return [];
   }
 }
 
-// Get the event data
 const { entry } = Astro.props;
-const { Content } = await entry.render();
-
-// Format the dates for display
-const formattedDate = formatDate(entry.data.date);
-const formattedEndDate = entry.data.endDate ? formatDate(entry.data.endDate) : null;
-
-// Determine if event is in the future
-const isFutureEvent = new Date(entry.data.date) > new Date();
+const { Content, headings } = await render(entry);
 ---
 
 <BaseLayout
@@ -40,90 +29,25 @@ const isFutureEvent = new Date(entry.data.date) > new Date();
   image={{ url: entry.data.image, alt: entry.data.title }}
   type="article"
 >
-  <PostLayout
-    title={entry.data.title}
-    description={entry.data.summary}
-    image={{ url: entry.data.image, alt: entry.data.title }}
-    date={entry.data.date}
-    tags={entry.data.tags}
-    type="event"
-  >
-    <!-- Event Details -->
-    <div class="bg-gray-50 rounded-lg p-6 mb-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <h3 class="text-lg font-bold mb-2">Date & Time</h3>
-          <div class="flex items-start mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <div>
-              {
-                formattedEndDate && formattedEndDate !== formattedDate ? (
-                  <p>{formattedDate} - {formattedEndDate}</p>
-                ) : (
-                  <p>{formattedDate}</p>
-                )
-              }
-              {entry.data.time && <p>{entry.data.time}</p>}
-            </div>
+  <PageHeader title={entry.data.title} backgroundImage={entry.data.image} />
+
+  <section class="py-16">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div class="lg:col-span-2">
+          <div
+            class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-a:text-primary-600 hover:prose-a:text-primary-700"
+          >
+            <Content />
           </div>
         </div>
-        
+
         <div>
-          <h3 class="text-lg font-bold mb-2">Location</h3>
-          <div class="flex items-start">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <p>{entry.data.location}</p>
+          <div class="sticky top-24 mb-6">
+            <EventInfoCard event={entry} />
           </div>
         </div>
       </div>
-      
-      {
-        isFutureEvent && entry.data.registrationRequired && (
-          <div class="mt-6 pt-6 border-t border-gray-200">
-            <h3 class="text-lg font-bold mb-3">Registration</h3>
-            <p class="mb-4">Registration is required for this event.</p>
-            
-            {entry.data.registrationLink ? (
-              <Button href={entry.data.registrationLink} target="_blank" variant="primary">
-                Register Now
-              </Button>
-            ) : (
-              <Button href="/contact?subject=Event+Registration" variant="primary">
-                Contact Us to Register
-              </Button>
-            )}
-          </div>
-        )
-      }
     </div>
-    
-    <!-- Event Content -->
-    <article class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-a:text-primary-600 hover:prose-a:text-primary-700">
-      <Content />
-    </article>
-    
-    <!-- Action Buttons -->
-    <div class="mt-12 flex flex-wrap gap-4">
-      {
-        isFutureEvent && entry.data.registrationLink && (
-          <Button href={entry.data.registrationLink} target="_blank" variant="primary">
-            Register for This Event
-          </Button>
-        )
-      }
-      
-      <Button href="/events" variant="outline">
-        Back to All Events
-      </Button>
-      
-      <Button href="/contact?subject=Event+Inquiry" variant="outline">
-        Questions? Contact Us
-      </Button>
-    </div>
-  </PostLayout>
+  </section>
 </BaseLayout>

@@ -1,314 +1,272 @@
-# maucariapacom-church-starter [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
+# 🙏 Church Website Starter
 
-An open-source starter template for building high-performance, content-driven church websites with Astro. Pure SSG, SEO-ready, built with Tailwind CSS, Markdown content, ready to integrate with any CMS
+A modern, responsive church website starter built with [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com), and [Preact](https://preactjs.com). Designed for churches who want a fast, content-driven site that's easy to manage through Markdown files.
 
-## Demo and Screenshot
-![Home Page](https://imgs.maucariapa.com/uploads/452546054-84337aa6-eea8-4879-9461-d2e7d3665aee.png)
+## ✨ Features
 
-Demo URL: [https://maucariapacom-church-starter.pages.dev](https://maucariapacom-church-starter.pages.dev/)
+- **Static site generation** — fast, SEO-friendly pages
+- **Tailwind CSS styling** — fully responsive, mobile-first design
+- **Markdown-based content** — manage content via frontmatter files
+- **Built-in content collections:**
+  - Blog posts
+  - Sermons (with audio/video support)
+  - Events
+  - Ministries
+  - Staff / leadership team
+  - Site information
+- **Dynamic detail pages** with sticky TOC sidebars
+- **Filtering / search** on blog and sermons listing pages
+- **SEO-ready** `<Seo />` component plus JSON-LD schema
+- **Sitemap** auto-generated via `@astrojs/sitemap`
 
-## Features
+## 🚀 Tech Stack
 
-- **Pure Static Site Generation (SSG)**: Fast, SEO-friendly pages generated at build time
-- **Content-Driven Architecture**: Content managed via Markdown files using Astro Content Collections
-- **Mobile-First Responsive Design**: Tailwind CSS for beautiful, responsive layouts
-- **SEO Optimized**: Complete meta tags, JSON-LD Schema, and sitemap.xml
-- **CMS-Ready Structure**: Easily integrate with headless CMS solutions
-- **Comprehensive Church Website Sections**: All essential pages for a complete church website
-- **Accessibility Focus**: WCAG compliant design and markup
-- **Modern UI Components**: Reusable components with hover states and micro-interactions
-- **Integrated Church Icon**: Custom SVG church icon used throughout the site
-- **Image Optimization**: Proper image organization and fallback handling
+- [Astro](https://astro.build/) `^6.4.8`
+- [Tailwind CSS](https://tailwindcss.com/) `^3.4.1`
+- [Preact](https://preactjs.com/) `^10.29.3`
+- [date-fns](https://date-fns.org/) for date formatting
+- [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) for rendered Markdown styles
 
-## Project Structure
-
-```
-maucariapacom-church-starter/
-├── public/
-│   ├── uploads/          # Images directories (staff, events, sermons, etc.)
-│   │   ├── staff/        # Staff profile images
-│   │   ├── events/       # Event images
-│   │   ├── sermons/      # Sermon thumbnail images
-│   │   ├── ministries/   # Ministry logo images
-│   │   └── blog/         # Blog post images
-│   ├── favicon.svg
-│   ├── robots.txt
-│   └── site.webmanifest
-├── src/
-│   ├── assets/           # Astro-processed assets
-│   ├── components/       # Reusable Astro components
-│   │   ├── Global/       # Header, Footer, Navigation
-│   │   ├── Sections/     # Page sections (Hero, Events, etc.)
-│   │   └── UI/           # UI components (Button, Card, SEO)
-│   ├── content/          # Astro Content Collections
-│   │   ├── config.ts     # Collection schemas
-│   │   ├── staff/        # Staff member profiles
-│   │   ├── events/       # Church events
-│   │   ├── sermons/      # Sermon content
-│   │   ├── ministries/   # Ministry descriptions
-│   │   ├── blog/         # Blog posts
-│   │   └── siteInfo/     # Site configuration content
-│   ├── layouts/          # Page layouts
-│   ├── pages/            # Astro pages
-│   └── utils/            # Utility functions
-├── astro.config.mjs
-├── tailwind.config.cjs
-└── tsconfig.json
-```
-
-## Getting Started
+## 📦 Getting Started
 
 ### Prerequisites
 
-- Node.js 18 or later
-- npm or yarn
+- Node.js `18.x` or higher
+- npm or another compatible package manager
 
-### Installation
+### Install dependencies
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/MauCariApa-com/maucariapacom-church-starter.git
-   cd maucariapacom-church-starter
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open your browser and navigate to `http://localhost:4321`
-
-## Content Management
-
-### Adding/Editing Content
-
-All content is stored in Markdown (`.md`) files in the `src/content/` directory.
-
-#### Creating a New Staff Member
-
-1. Create a new file in `src/content/staff/` with a `.md` extension (e.g., `john-smith.md`)
-2. Add the required frontmatter fields:
-
-```markdown
----
-name: "John Smith"
-title: "Youth Pastor"
-image: "/uploads/staff/john-smith.webp"
-email: "john@example.com"
-phone: "+1-555-1234"
-bio: "John has been serving in youth ministry for 10 years."
-order: 3
-draft: false
----
-
-Detailed biography and information about John goes here...
+```bash
+npm install
 ```
 
-#### Creating a New Event
+### Start the development server
 
-1. Create a new file in `src/content/events/` with a `.md` extension
-2. Add the required frontmatter fields:
+```bash
+npm run dev
+```
 
-```markdown
+Open [http://localhost:4321](http://localhost:4321) to view the site.
+
+### Build for production
+
+```bash
+npm run build
+```
+
+### Preview the production build
+
+```bash
+npm run preview
+```
+
+## 🗂️ Project Structure
+
+```text
+├── public/                   # Static assets (images, favicons, uploads)
+├── src/
+│   ├── assets/
+│   │   └── styles/
+│   │       └── global.css    # Tailwind entry + custom base styles
+│   ├── components/
+│   │   ├── Cards/            # Reusable card components
+│   │   ├── Global/           # Header, Footer, Navigation
+│   │   ├── Sections/         # Page section components
+│   │   └── UI/               # Button, SEO, etc.
+│   ├── content/
+│   │   ├── blog/             # Blog posts (Markdown with frontmatter)
+│   │   ├── events/           # Church events
+│   │   ├── ministries/       # Church ministries
+│   │   ├── sermons/          # Sermon entries
+│   │   ├── siteInfo/         # Reusable site-wide info blocks
+│   │   └── staff/            # Staff / leadership profiles
+│   ├── layouts/
+│   │   ├── BaseLayout.astro  # Global HTML shell
+│   │   └── PostLayout.astro  # Layout for content pages
+│   ├── pages/
+│   │   ├── index.astro       # Homepage
+│   │   ├── about-us.astro    # About page
+│   │   ├── staff.astro       # Staff listing
+│   │   ├── ministries/
+│   │   │   ├── index.astro   # Ministries listing
+│   │   │   └── [slug].astro  # Dynamic ministry detail
+│   │   ├── sermons/
+│   │   │   ├── index.astro   # Sermons listing with filters
+│   │   │   └── [slug].astro  # Dynamic sermon detail
+│   │   ├── events/
+│   │   │   ├── index.astro   # Events listing
+│   │   │   └── [slug].astro  # Dynamic event detail
+│   │   ├── blog/
+│   │   │   ├── index.astro   # Blog listing with filters
+│   │   │   └── [slug].astro  # Dynamic blog detail
+│   │   ├── im-new.astro      # Visitor guide
+│   │   ├── contact.astro     # Contact page + form
+│   │   └── giving.astro      # Giving page
+│   ├── utils/
+│   │   └── dateUtils.js      # Date helpers
+│   ├── content.config.ts     # Astro content collection schemas
+│   └── env.d.ts
+├── astro.config.mjs
+├── tailwind.config.cjs
+├── postcss.config.cjs
+└── package.json
+```
+
+## 📝 Content Collections
+
+All dynamic content is managed through Markdown/MDX files inside `src/content/`. Each collection has a Zod schema defined in `src/content.config.ts`.
+
+### Blog
+
+Located at `src/content/blog/`.
+
+```yaml
 ---
-title: "Youth Summer Camp"
-date: 2025-07-15
-endDate: 2025-07-20
-time: "9:00 AM - 5:00 PM"
-location: "Camp Wilderness"
-image: "/uploads/events/summer-camp.webp"
-summary: "A week-long adventure for teens to grow in faith and have fun!"
-tags: ["youth", "summer", "camp"]
+title: "Post Title"
+slug: "post-slug"
+pubDate: 2025-01-20
+description: "A short description"
+author: "Author Name"
+image:
+  url: "/uploads/blog/image.webp"
+  alt: "Alt text"
+tags: ["faith", "prayer"]
+draft: false
+---
+```
+
+### Sermons
+
+Located at `src/content/sermons/`.
+
+```yaml
+---
+title: "Sermon Title"
+date: 2025-02-02
+speaker: "Pastor Name"
+series: "Series Name"
+scripture: "Proverbs 3:5-6"
+audioUrl: "https://example.com/sermon.mp3"
+videoUrl: "https://www.youtube.com/embed/..."
+image: "/uploads/sermons/image.webp"
+summary: "Short summary"
+tags: ["faith", "trust"]
+draft: false
+---
+```
+
+### Events
+
+Located at `src/content/events/`.
+
+```yaml
+---
+title: "Event Title"
+date: 2025-04-20
+endDate: 2025-04-20
+time: "8:00 AM & 10:30 AM"
+location: "Main Sanctuary"
+image: "/uploads/events/image.webp"
+summary: "Event summary"
+tags: ["easter", "celebration"]
 registrationRequired: true
 registrationLink: "https://example.com/register"
 draft: false
 ---
-
-## About Summer Camp
-
-Join us for an exciting week of activities, worship, and spiritual growth...
 ```
 
-#### Creating a New Sermon
+### Ministries
 
-1. Create a new file in `src/content/sermons/` with a `.md` extension
-2. Add the required frontmatter fields:
+Located at `src/content/ministries/`.
 
-```markdown
+```yaml
 ---
-title: "Walking in Faith"
-date: 2025-02-02
-speaker: "Rev. Dr. John Smith"
-series: "Faith Foundations"
-scripture: "Proverbs 3:5-6"
-audioUrl: "https://example.com/sermons/walking-in-faith.mp3"
-videoUrl: "https://www.youtube.com/embed/example789"
-image: "/uploads/sermons/walking-in-faith.webp"
-summary: "Learn how to trust God completely and walk confidently in His plan."
-tags: ["faith", "trust", "guidance"]
+name: "Ministry Name"
+slug: "ministry-slug"
+logo: "/uploads/ministries/logo.webp"
+summary: "Short summary"
+coordinator: "Coordinator Name"
+contact: "ministry@churchname.org"
+schedule: "Sundays at 10:30 AM"
+order: 1
 draft: false
 ---
-
-## Sermon Overview
-
-Content of your sermon goes here...
 ```
 
-### Content Schema
+### Staff
 
-See `src/content/config.ts` for the complete schema definitions for all content types.
+Located at `src/content/staff/`.
 
-## Key Pages and Features
-
-### Main Pages
-- **Homepage** (`/`): Hero section, service times, about preview, recent events/sermons
-- **About Us** (`/about-us`): Mission, values, history, staff preview
-- **Staff** (`/staff`): Complete staff directory with contact information
-- **Ministries** (`/ministries`): All church ministries with detailed pages
-- **Sermons** (`/sermons`): Sermon archive with audio/video support and filtering
-- **Events** (`/events`): Upcoming and past events with registration support
-- **Blog** (`/blog`): Church blog with filtering and search
-- **I'm New** (`/im-new`): First-time visitor information
-- **Contact** (`/contact`): Contact forms, location, staff contacts
-- **Giving** (`/giving`): Online giving information and financial transparency
-
-### Special Features
-- **Responsive Design**: Mobile-first approach with proper breakpoints
-- **Content Filtering**: Advanced filtering on sermons and blog posts
-- **SEO Optimization**: Complete meta tags, JSON-LD schema, and sitemap
-- **Accessibility**: WCAG compliant with proper ARIA labels and keyboard navigation
-- **Performance**: Optimized images and fast loading times
-- **Modern UI**: Hover states, transitions, and micro-interactions
-
-## Customization
-
-### Site Information
-
-Update your church information in the following files:
-
-- Site metadata in `astro.config.mjs`
-- SEO defaults in `src/layouts/BaseLayout.astro`
-- Contact information in `src/components/Global/Footer.astro`
-- Church details throughout the content files
-
-### Styling
-
-This template uses Tailwind CSS for styling:
-
-1. Customize colors and other theme settings in `tailwind.config.cjs`
-2. Global styles are in `src/assets/styles/global.css`
-3. The template includes a comprehensive color system with primary, secondary, and accent colors
-
-### Logo & Branding
-
-The template includes a built-in church SVG icon that's used throughout the site. To customize:
-
-1. Replace the SVG icon in `src/components/Global/Header.astro` and `src/components/Global/Footer.astro`
-2. Update favicon in `public/favicon.svg`
-3. Modify the site manifest in `public/site.webmanifest`
-
-### Images
-
-Images are organized in the `/public/uploads/` directory:
-- `/uploads/staff/` - Staff profile images
-- `/uploads/events/` - Event images
-- `/uploads/sermons/` - Sermon thumbnails
-- `/uploads/ministries/` - Ministry logos
-- `/uploads/blog/` - Blog post images
-
-The template includes fallback handling for missing images and uses external Unsplash images for some sections.
-
-## Headless CMS Integration
-
-This starter is designed to work well with these headless CMS solutions:
-
-### TinaCMS
-
-1. Install TinaCMS:
-   ```bash
-   npm install tinacms @tinacms/cli
-   ```
-
-2. Add the Tina config file (see TinaCMS documentation)
-
-3. The existing Content Collections schemas can be adapted for TinaCMS
-
-### Decap CMS (formerly Netlify CMS)
-
-1. Add Decap CMS config to `public/admin/config.yml`
-2. The existing Content Collections structure works well with Decap CMS
-
-## Deployment
-
-This site can be deployed to any static hosting platform:
-
-### Netlify
-
-1. Push your repository to GitHub
-2. Connect to Netlify
-3. Set build command to `npm run build` and publish directory to `dist/`
-
-### Vercel
-
-1. Push your repository to GitHub
-2. Import in Vercel
-3. It will automatically detect Astro and set up the correct build settings
-
-### GitHub Pages
-
-1. Install gh-pages:
-   ```bash
-   npm install -D gh-pages
-   ```
-
-2. Add deploy script to package.json:
-   ```json
-   "scripts": {
-     "deploy": "npm run build && gh-pages -d dist"
-   }
-   ```
-
-3. Run `npm run deploy`
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Bugs / Issues
-
-We appreciate your understanding and encourage you to report any new bugs you find by
-[opening an issue](https://github.com/MauCariApa-com/maucariapacom-church-starter/issues)
-on our GitHub repository.
-
-## Acknowledgments
-
-- [Astro](https://astro.build) for the awesome static site generator
-- [Tailwind CSS](https://tailwindcss.com) for the utility-first CSS framework
-- [Heroicons](https://heroicons.com) for the icon system
-- [Pexels](https://pexels.com) & [Unsplash](https://unsplash.com) for stock photography
-
-## Support
-
-For questions, issues, or contributions, please visit our GitHub repository or contact the development team.
-
-## Donate
-
-Love our work? 
-
-[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/kodester/)
-
+```yaml
 ---
+name: "Staff Name"
+title: "Job Title"
+image: "/uploads/staff/photo.webp"
+email: "email@churchname.org"
+phone: "+1-555-0101"
+bio: "Short bio"
+order: 1
+draft: false
+---
+```
 
-Created with ❤️ for church communities worldwide
+### Site Info
+
+Located at `src/content/siteInfo/`. Useful for reusable blocks like office hours.
+
+```yaml
+---
+title: "Church Office & Activity Hours"
+---
+```
+
+## 🎨 Customization
+
+### Site identity
+
+1. Update the church name and contact details in:
+   - `src/components/Global/Header.astro`
+   - `src/components/Global/Footer.astro`
+   - `src/components/UI/Seo.astro`
+   - All page titles/descriptions
+
+2. Replace placeholder images in `public/uploads/` with your own assets.
+
+3. Update the timeline on `src/pages/about-us.astro` to match your church history.
+
+### Colors
+
+Edit `tailwind.config.cjs` to change the primary, secondary, and accent color palettes.
+
+```js
+colors: {
+  primary: { /* your shades */ },
+  secondary: { /* your shades */ },
+  accent: { /* your shades */ },
+}
+```
+
+## 🌐 Deployment
+
+This is a static site, so it can be deployed to:
+
+- [Netlify](https://www.netlify.com/)
+- [Vercel](https://vercel.com/)
+- [Cloudflare Pages](https://pages.cloudflare.com/)
+- [GitHub Pages](https://pages.github.com/)
+- Any static web host
+
+Make sure to update the `site` URL in `astro.config.mjs` before deploying:
+
+```js
+export default defineConfig({
+  site: 'https://yourchurch.org',
+  // ...
+});
+```
+
+Built files are placed in the `dist/` directory.
+
+## 📄 License
+
+This starter was created by [MauCariApa.com](https://maucariapa.com). Customize it freely for your church or organization.

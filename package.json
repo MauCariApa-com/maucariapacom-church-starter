@@ -1,7 +1,7 @@
 {
   "name": "maucariapacom-church-starter",
   "type": "module",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -10,13 +10,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.2.5",
-    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/preact": "^6.0.0",
     "@astrojs/sitemap": "^3.1.1",
-    "tailwindcss": "^3.4.1",
-    "date-fns": "^3.3.1"
+    "astro": "^6.4.8",
+    "date-fns": "^3.3.1",
+    "preact": "^10.29.3",
+    "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10"
+    "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.19",
+    "typescript": "^5.8.2"
   }
 }

@@ -1,0 +1,34 @@
+---
+import Button from '../UI/Button.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  ctaHref?: string;
+  ctaText?: string;
+  className?: string;
+}
+
+const {
+  title,
+  description,
+  ctaHref,
+  ctaText,
+  className = '',
+} = Astro.props;
+---
+
+<div class:list={['bg-white p-8 rounded-lg shadow-sm text-center', className]}>
+  <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-primary-100 flex items-center justify-center">
+    <slot name="icon" />
+  </div>
+  <h3 class="text-xl font-bold mb-3">{title}</h3>
+  <p class="text-gray-700 mb-6" set:html={description} />
+  {
+    ctaHref && ctaText && (
+      <Button href={ctaHref} variant="primary">
+        {ctaText}
+      </Button>
+    )
+  }
+</div>

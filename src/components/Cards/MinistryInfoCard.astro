@@ -1,0 +1,62 @@
+---
+import Button from "../UI/Button.astro";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  ministry: CollectionEntry<"ministries">;
+}
+
+const { ministry } = Astro.props;
+---
+
+<div class="bg-gray-50 p-6 rounded-lg shadow-sm sticky top-24">
+  <h3 class="font-bold mb-4">Ministry Information</h3>
+
+  <div class="space-y-4 mb-6">
+    {
+      ministry.data.coordinator && (
+        <div>
+          <h4 class="font-bold text-gray-700 mb-1">Coordinator</h4>
+          <p>{ministry.data.coordinator}</p>
+        </div>
+      )
+    }
+
+    {
+      ministry.data.contact && (
+        <div>
+          <h4 class="font-bold text-gray-700 mb-1">Contact</h4>
+          {ministry.data.contact.includes("@") ? (
+            <a
+              href={`mailto:${ministry.data.contact}`}
+              class="text-primary-600 hover:text-primary-700"
+            >
+              {ministry.data.contact}
+            </a>
+          ) : (
+            <p>{ministry.data.contact}</p>
+          )}
+        </div>
+      )
+    }
+
+    {
+      ministry.data.schedule && (
+        <div>
+          <h4 class="font-bold text-gray-700 mb-1">Schedule</h4>
+          <p>{ministry.data.schedule}</p>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="flex flex-col space-y-3">
+    <Button href="/contact?subject=Ministry+Inquiry" variant="primary">
+      Get Involved
+    </Button>
+
+    <Button href="/ministries" variant="outline">
+      Back to All Ministries
+    </Button>
+  </div>
+</div>

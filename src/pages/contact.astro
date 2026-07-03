@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/Sections/PageHeader.astro";
 import Button from "../components/UI/Button.astro";
+import InfoCard from "../components/Cards/InfoCard.astro";
 ---
 
 <BaseLayout
@@ -235,9 +236,7 @@ import Button from "../components/UI/Button.astro";
         </div>
         
         <div>
-          <div class="bg-white p-8 rounded-lg shadow-md">
-            <h3 class="text-xl font-bold mb-4">Getting Here</h3>
-            
+          <InfoCard title="Getting Here" className="bg-white p-8 rounded-lg shadow-md">
             <div class="space-y-6">
               <div>
                 <h4 class="font-bold mb-2">By Car</h4>
@@ -266,7 +265,7 @@ import Button from "../components/UI/Button.astro";
                 Get Directions
               </Button>
             </div>
-          </div>
+          </InfoCard>
         </div>
       </div>
     </div>
@@ -283,8 +282,7 @@ import Button from "../components/UI/Button.astro";
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-2">Pastoral Care</h3>
+        <InfoCard title="Pastoral Care">
           <p class="text-gray-700 mb-4">
             For spiritual counseling, hospital visits, or prayer requests
           </p>
@@ -296,10 +294,9 @@ import Button from "../components/UI/Button.astro";
               pastor@churchname.org
             </a>
           </div>
-        </div>
+        </InfoCard>
         
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-2">Children's Ministry</h3>
+        <InfoCard title="Children's Ministry">
           <p class="text-gray-700 mb-4">
             For questions about programs for children from birth through 5th grade
           </p>
@@ -311,10 +308,9 @@ import Button from "../components/UI/Button.astro";
               children@churchname.org
             </a>
           </div>
-        </div>
+        </InfoCard>
         
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-2">Youth Ministry</h3>
+        <InfoCard title="Youth Ministry">
           <p class="text-gray-700 mb-4">
             For questions about programs for students in 6th-12th grade
           </p>
@@ -326,10 +322,9 @@ import Button from "../components/UI/Button.astro";
               youth@churchname.org
             </a>
           </div>
-        </div>
+        </InfoCard>
         
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-2">Worship Ministry</h3>
+        <InfoCard title="Worship Ministry">
           <p class="text-gray-700 mb-4">
             For information about our music and creative arts ministries
           </p>
@@ -341,10 +336,9 @@ import Button from "../components/UI/Button.astro";
               worship@churchname.org
             </a>
           </div>
-        </div>
+        </InfoCard>
         
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-2">Outreach & Missions</h3>
+        <InfoCard title="Outreach & Missions">
           <p class="text-gray-700 mb-4">
             For information about our local and global mission initiatives
           </p>
@@ -356,10 +350,9 @@ import Button from "../components/UI/Button.astro";
               outreach@churchname.org
             </a>
           </div>
-        </div>
+        </InfoCard>
         
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-2">Admin & Facilities</h3>
+        <InfoCard title="Admin & Facilities">
           <p class="text-gray-700 mb-4">
             For building use, scheduling, and administrative questions
           </p>
@@ -371,7 +364,7 @@ import Button from "../components/UI/Button.astro";
               admin@churchname.org
             </a>
           </div>
-        </div>
+        </InfoCard>
       </div>
     </div>
   </section>

@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 // Get the office hours from the siteInfo collection
 let officeHours;
@@ -73,7 +73,7 @@ const currentYear = new Date().getFullYear();
 // Render office hours content if available
 let OfficeHoursContent = null;
 if (officeHours) {
-  const { Content } = await officeHours.render();
+  const { Content } = await render(officeHours);
   OfficeHoursContent = Content;
 }
 ---

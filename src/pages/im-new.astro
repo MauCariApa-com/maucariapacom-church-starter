@@ -2,6 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/Sections/PageHeader.astro";
 import Button from "../components/UI/Button.astro";
+import FeatureCard from "../components/Cards/FeatureCard.astro";
+import ServiceCard from "../components/Cards/ServiceCard.astro";
+import InfoCard from "../components/Cards/InfoCard.astro";
 ---
 
 <BaseLayout
@@ -25,41 +28,38 @@ import Button from "../components/UI/Button.astro";
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="text-center p-6">
-          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-primary-100 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Service Length</h3>
-          <p class="text-gray-700">
-            Our services typically last about 75 minutes, including worship, announcements, and the sermon.
-          </p>
-        </div>
+        <FeatureCard
+          title="Service Length"
+          description="Our services typically last about 75 minutes, including worship, announcements, and the sermon."
+          iconBgClass="bg-primary-100"
+          className="p-6"
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </FeatureCard>
         
-        <div class="text-center p-6">
-          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-primary-100 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Worship Style</h3>
-          <p class="text-gray-700">
-            Our worship blends contemporary and traditional elements. We sing both modern worship songs and classic hymns.
-          </p>
-        </div>
+        <FeatureCard
+          title="Worship Style"
+          description="Our worship blends contemporary and traditional elements. We sing both modern worship songs and classic hymns."
+          iconBgClass="bg-primary-100"
+          className="p-6"
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+          </svg>
+        </FeatureCard>
         
-        <div class="text-center p-6">
-          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-primary-100 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Teaching Style</h3>
-          <p class="text-gray-700">
-            Our messages are biblically-based, practical, and applicable to everyday life. We focus on how Scripture speaks to our current challenges.
-          </p>
-        </div>
+        <FeatureCard
+          title="Teaching Style"
+          description="Our messages are biblically-based, practical, and applicable to everyday life. We focus on how Scripture speaks to our current challenges."
+          iconBgClass="bg-primary-100"
+          className="p-6"
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </FeatureCard>
       </div>
     </div>
   </section>
@@ -100,8 +100,7 @@ import Button from "../components/UI/Button.astro";
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <div class="bg-white p-8 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-3">Sunday Morning</h3>
+        <ServiceCard title="Sunday Morning" bgClass="bg-white">
           <div class="mb-4">
             <p class="text-2xl font-bold text-primary-600 mb-2">8:00 AM</p>
             <p class="text-gray-600">Traditional Service</p>
@@ -113,10 +112,9 @@ import Button from "../components/UI/Button.astro";
             <p class="text-gray-600">Contemporary Service with Children's Ministry</p>
             <p class="italic text-gray-500 mt-2">In-person only</p>
           </div>
-        </div>
+        </ServiceCard>
         
-        <div class="bg-white p-8 rounded-lg shadow-sm">
-          <h3 class="text-xl font-bold mb-3">Wednesday Evening</h3>
+        <ServiceCard title="Wednesday Evening" bgClass="bg-white">
           <div class="mb-4">
             <p class="text-2xl font-bold text-primary-600 mb-2">7:00 PM</p>
             <p class="text-gray-600">Mid-week Prayer & Bible Study</p>
@@ -128,7 +126,7 @@ import Button from "../components/UI/Button.astro";
             <p class="text-gray-600">Youth Group (Grades 6-12)</p>
             <p class="italic text-gray-500 mt-2">In-person only</p>
           </div>
-        </div>
+        </ServiceCard>
       </div>
     </div>
   </section>
@@ -214,8 +212,7 @@ import Button from "../components/UI/Button.astro";
         </div>
         
         <div>
-          <div class="bg-white p-8 rounded-lg shadow-sm h-full">
-            <h3 class="text-xl font-bold mb-4">Church Address</h3>
+          <InfoCard title="Church Address" className="bg-white p-8 rounded-lg shadow-sm h-full">
             <address class="not-italic mb-6 text-gray-700">
               <p class="text-lg">123 Main Street</p>
               <p class="text-lg">Anytown, ST 12345</p>
@@ -239,7 +236,7 @@ import Button from "../components/UI/Button.astro";
             <Button href="https://maps.google.com/?q=123+Main+Street,+Anytown,+ST+12345" target="_blank" variant="primary">
               Get Directions
             </Button>
-          </div>
+          </InfoCard>
         </div>
       </div>
     </div>

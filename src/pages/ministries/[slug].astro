@@ -1,106 +1,54 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/Sections/PageHeader.astro";
-import Button from "../../components/UI/Button.astro";
-import { getCollection } from "astro:content";
+import MinistryInfoCard from "../../components/Cards/MinistryInfoCard.astro";
+import { getCollection, render } from "astro:content";
 
-// Generate static paths for all ministries
 export async function getStaticPaths() {
   try {
     const ministryEntries = await getCollection("ministries", ({ data }) => {
       return import.meta.env.PROD ? !data.draft : true;
     });
 
-    return ministryEntries.map(entry => ({
-      params: { slug: entry.slug },
+    return ministryEntries.map((entry) => ({
+      params: { slug: entry.id },
       props: { entry },
     }));
   } catch (error) {
-    // If the collection doesn't exist yet, return an empty array
     return [];
   }
 }
 
-// Get the ministry data
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content, headings } = await render(entry);
 ---
 
 <BaseLayout
   title={`${entry.data.name} - Church Name`}
   description={entry.data.summary}
-  image={entry.data.logo ? { url: entry.data.logo, alt: entry.data.name } : undefined}
+  image={entry.data.logo
+    ? { url: entry.data.logo, alt: entry.data.name }
+    : undefined}
 >
-  <PageHeader 
-    title={entry.data.name} 
+  <PageHeader
+    title={entry.data.name}
     backgroundImage="/uploads/ministry-detail-bg.webp"
   />
-  
+
   <section class="py-16">
     <div class="container">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        <!-- Main Content -->
         <div class="lg:col-span-2">
-          <div class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900">
+          <div
+            class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-a:text-primary-600 hover:prose-a:text-primary-700"
+          >
             <Content />
           </div>
         </div>
-        
-        <!-- Sidebar -->
+
         <div>
-          <div class="bg-gray-50 p-6 rounded-lg shadow-sm sticky top-24">
-            {
-              entry.data.logo && (
-                <div class="mb-6 flex justify-center">
-                  <img 
-                    src={entry.data.logo} 
-                    alt={entry.data.name} 
-                    class="max-h-48 w-auto"
-                  />
-                </div>
-              )
-            }
-            
-            <h3 class="text-xl font-bold mb-4">Ministry Information</h3>
-            
-            <div class="space-y-4 mb-6">
-              {entry.data.coordinator && (
-                <div>
-                  <h4 class="font-bold text-gray-700">Coordinator</h4>
-                  <p>{entry.data.coordinator}</p>
-                </div>
-              )}
-              
-              {entry.data.contact && (
-                <div>
-                  <h4 class="font-bold text-gray-700">Contact</h4>
-                  {entry.data.contact.includes('@') ? (
-                    <a href={`mailto:${entry.data.contact}`} class="text-primary-600 hover:text-primary-700">
-                      {entry.data.contact}
-                    </a>
-                  ) : (
-                    <p>{entry.data.contact}</p>
-                  )}
-                </div>
-              )}
-              
-              {entry.data.schedule && (
-                <div>
-                  <h4 class="font-bold text-gray-700">Schedule</h4>
-                  <p>{entry.data.schedule}</p>
-                </div>
-              )}
-            </div>
-            
-            <div class="flex flex-col space-y-3">
-              <Button href="/contact?subject=Ministry+Inquiry" variant="primary">
-                Get Involved
-              </Button>
-              
-              <Button href="/ministries" variant="outline">
-                Back to All Ministries
-              </Button>
-            </div>
+          <div class="sticky top-24 mb-6">
+            <MinistryInfoCard ministry={entry} />
           </div>
         </div>
       </div>

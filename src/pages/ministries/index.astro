@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/Sections/PageHeader.astro";
+import MinistryCard from "../../components/Cards/MinistryCard.astro";
 import { getCollection } from "astro:content";
 
 // Fetch all ministries
@@ -33,61 +34,7 @@ const ministries = all.sort((a, b) =>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {ministries.map(m => (
-        <a
-          href={`/ministries/${m.slug}`}
-          class="
-          g-white rounded-lg shadow 
-          flex flex-col overflow-hidden 
-          hover:shadow-lg transition
-          min-h-[370px]
-          "
-        >
-            <!-- gambar fixed height 200px -->
-            {m.data.logo && (
-              <div class="w-full h-[200px] overflow-hidden">
-                <img
-                  src={m.data.logo}
-                  alt={m.data.name}
-                  class="w-full h-full object-cover"
-                />
-              </div>
-            )}
-
-            <div class="p-4 flex flex-col flex-1 justify-between">
-              <div>
-                <h3 class="text-xl font-semibold mb-2">{m.data.name}</h3>
-                <p class="text-gray-700">{m.data.summary}</p>
-              </div>
-              {(m.data.coordinator || m.data.schedule) && (
-                <div class="mt-4 space-y-1 text-sm text-gray-600">
-                  {m.data.coordinator && (
-                    <div class="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg"
-                           class="h-4 w-4 mr-1" fill="none"
-                           viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      Coordinator: {m.data.coordinator}
-                    </div>
-                  )}
-                  {m.data.schedule && (
-                    <div class="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg"
-                           class="h-4 w-4 mr-1 align-text-top" fill="none"
-                           viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {m.data.schedule}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </a>
+          <MinistryCard ministry={m} />
         ))}
       </div>
     </div>

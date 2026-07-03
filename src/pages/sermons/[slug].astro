@@ -1,47 +1,46 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PostLayout from "../../layouts/PostLayout.astro";
+import PageHeader from "../../components/Sections/PageHeader.astro";
 import Button from "../../components/UI/Button.astro";
-import { getCollection } from "astro:content";
+import SermonInfoCard from "../../components/Cards/SermonInfoCard.astro";
+import CompactLinkCard from "../../components/Cards/CompactLinkCard.astro";
+import { getCollection, render } from "astro:content";
 import { formatDate } from "../../utils/dateUtils";
 
-// Generate static paths for all sermons
 export async function getStaticPaths() {
   try {
     const sermonEntries = await getCollection("sermons", ({ data }) => {
       return import.meta.env.PROD ? !data.draft : true;
     });
 
-    return sermonEntries.map(entry => ({
-      params: { slug: entry.slug },
+    return sermonEntries.map((entry) => ({
+      params: { slug: entry.id },
       props: { entry },
     }));
   } catch (error) {
-    // If the collection doesn't exist yet, return an empty array
     return [];
   }
 }
 
-// Get the sermon data
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content, headings } = await render(entry);
 
-// Format the date for display
-const formattedDate = formatDate(entry.data.date);
-
-// Find related sermons from the same series (if available)
 let relatedSermons = [];
 if (entry.data.series) {
   try {
     const allSermons = await getCollection("sermons", ({ data }) => {
       return import.meta.env.PROD ? !data.draft : true;
     });
-    
+
     relatedSermons = allSermons
-      .filter(sermon => 
-        sermon.data.series === entry.data.series && sermon.slug !== entry.slug
+      .filter(
+        (sermon) =>
+          sermon.data.series === entry.data.series && sermon.id !== entry.id,
       )
-      .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+      .sort(
+        (a, b) =>
+          new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+      )
       .slice(0, 3);
   } catch (error) {
     console.log("Error fetching related sermons");
@@ -51,144 +50,83 @@ if (entry.data.series) {
 
 <BaseLayout
   title={`${entry.data.title} - Sermons - Church Name`}
-  description={entry.data.summary || `Listen to "${entry.data.title}" by ${entry.data.speaker}`}
-  image={entry.data.image ? { url: entry.data.image, alt: entry.data.title } : undefined}
+  description={entry.data.summary ||
+    `Listen to "${entry.data.title}" by ${entry.data.speaker}`}
+  image={entry.data.image
+    ? { url: entry.data.image, alt: entry.data.title }
+    : undefined}
   type="article"
 >
-  <PostLayout
+  <PageHeader
     title={entry.data.title}
-    description={entry.data.summary}
-    image={entry.data.image ? { url: entry.data.image, alt: entry.data.title } : undefined}
-    date={entry.data.date}
-    author={entry.data.speaker}
-    tags={entry.data.tags}
-    type="sermon"
-  >
-    <!-- Sermon Details -->
-    <div class="bg-gray-50 rounded-lg p-6 mb-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <div class="mb-4">
-            <h3 class="text-lg font-bold mb-2">Speaker</h3>
-            <p class="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              {entry.data.speaker}
-            </p>
-          </div>
-          
+    subtitle={entry.data.summary}
+    backgroundImage={entry.data.image || "/uploads/sermons-header-bg.webp"}
+  />
+
+  <section class="py-16">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div class="lg:col-span-2">
           {
-            entry.data.series && (
-              <div class="mb-4">
-                <h3 class="text-lg font-bold mb-2">Series</h3>
-                <p class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                  </svg>
-                  {entry.data.series}
-                </p>
+            entry.data.videoUrl && (
+              <div class="mb-8">
+                <h3 class="text-xl font-bold mb-4">Watch</h3>
+                <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+                  <iframe
+                    src={entry.data.videoUrl}
+                    title={entry.data.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    class="w-full h-full"
+                  />
+                </div>
+              </div>
+            )
+          }
+
+          {
+            entry.data.audioUrl && (
+              <div class="mb-8">
+                <h3 class="text-xl font-bold mb-4">Listen</h3>
+                <audio controls class="w-full">
+                  <source src={entry.data.audioUrl} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            )
+          }
+
+          <div
+            class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-a:text-primary-600 hover:prose-a:text-primary-700"
+          >
+            <Content />
+          </div>
+
+          {
+            relatedSermons.length > 0 && (
+              <div class="mt-12">
+                <h2 class="text-2xl font-bold mb-6">More From This Series</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {relatedSermons.map((sermon) => (
+                    <CompactLinkCard
+                      href={`/sermons/${sermon.id}`}
+                      title={sermon.data.title}
+                      meta={formatDate(sermon.data.date)}
+                      linkText="Listen/Watch"
+                    />
+                  ))}
+                </div>
               </div>
             )
           }
         </div>
-        
+
         <div>
-          <div class="mb-4">
-            <h3 class="text-lg font-bold mb-2">Date</h3>
-            <p class="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              {formattedDate}
-            </p>
+          <div class="sticky top-24 mb-6">
+            <SermonInfoCard sermon={entry} />
           </div>
-          
-          {
-            entry.data.scripture && (
-              <div>
-                <h3 class="text-lg font-bold mb-2">Scripture</h3>
-                <p class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                  {entry.data.scripture}
-                </p>
-              </div>
-            )
-          }
         </div>
       </div>
     </div>
-    
-    <!-- Media Players -->
-    <div class="mb-8 space-y-6">
-      {
-        entry.data.videoUrl && (
-          <div>
-            <h3 class="text-xl font-bold mb-4">Watch</h3>
-            <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
-              <iframe 
-                src={entry.data.videoUrl} 
-                title={entry.data.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-                class="w-full h-full"
-              ></iframe>
-            </div>
-          </div>
-        )
-      }
-      
-      {
-        entry.data.audioUrl && (
-          <div>
-            <h3 class="text-xl font-bold mb-4">Listen</h3>
-            <audio controls class="w-full">
-              <source src={entry.data.audioUrl} type="audio/mpeg">
-              Your browser does not support the audio element.
-            </audio>
-          </div>
-        )
-      }
-    </div>
-    
-    <!-- Sermon Content -->
-    <article class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-a:text-primary-600 hover:prose-a:text-primary-700">
-      <Content />
-    </article>
-    
-    <!-- Related Sermons -->
-    {
-      relatedSermons.length > 0 && (
-        <div class="mt-12">
-          <h2 class="text-2xl font-bold mb-6">More From This Series</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {relatedSermons.map(sermon => (
-              <a href={`/sermons/${sermon.slug}`} class="block bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
-                <h3 class="font-bold mb-2">{sermon.data.title}</h3>
-                <p class="text-sm text-gray-600 mb-2">{formatDate(sermon.data.date)}</p>
-                <p class="text-primary-600 text-sm font-medium">Listen/Watch →</p>
-              </a>
-            ))}
-          </div>
-        </div>
-      )
-    }
-    
-    <!-- Action Buttons -->
-    <div class="mt-12 flex flex-wrap gap-4">
-      <Button href="/sermons" variant="outline">
-        Back to All Sermons
-      </Button>
-      
-      {
-        entry.data.series && (
-          <Button href={`/sermons?series=${encodeURIComponent(entry.data.series)}`} variant="outline">
-            View All in This Series
-          </Button>
-        )
-      }
-    </div>
-  </PostLayout>
+  </section>
 </BaseLayout>

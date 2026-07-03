@@ -1,9 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/Sections/PageHeader.astro";
-import Card from "../../components/UI/Card.astro";
+import BlogCard from "../../components/Cards/BlogCard.astro";
 import { getCollection } from "astro:content";
-import { formatDate } from "../../utils/dateUtils";
 
 // Get all blog posts
 const allPosts = await getCollection("blog", ({ data }) => {
@@ -116,50 +115,7 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))];
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="posts-grid">
             {posts.map((post) => (
-              <Card
-                title={post.data.title}
-                image={post.data.image && {
-                  src: post.data.image.url,
-                  alt: post.data.image.alt
-                }}
-                href={`/blog/${post.slug}`}
-                className="blog-card"
-                data-tags={post.data.tags.join(',')}
-                data-author={post.data.author}
-                data-date={post.data.pubDate.toISOString().slice(0, 10)}
-              >
-                <div class="mb-3 flex items-center text-gray-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span>{formatDate(post.data.pubDate)}</span>
-                </div>
-                
-                <div class="mb-3 flex items-center text-gray-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  <span>{post.data.author}</span>
-                </div>
-                
-                <p class="text-gray-700 mb-4">{post.data.description}</p>
-                
-                {
-                  post.data.tags.length > 0 && (
-                    <div class="flex flex-wrap gap-2 mb-4">
-                      {post.data.tags.map((tag) => (
-                        <span class="px-2 py-1 text-xs font-medium text-primary-700 bg-primary-100 rounded-full">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )
-                }
-
-                <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700">
-                  Read More →
-                </p>
-              </Card>
+              <BlogCard post={post} className="blog-card" />
             ))}
           </div>
           
