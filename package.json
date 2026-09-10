@@ -12,7 +12,7 @@
   "dependencies": {
     "@astrojs/preact": "^6.0.2",
     "@astrojs/sitemap": "^3.1.1",
-    "astro": "7.2.0",
+    "astro": "7.2.8",
     "date-fns": "^3.3.1",
     "preact": "^10.29.3",
     "tailwindcss": "^3.4.1"
