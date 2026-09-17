@@ -21,7 +21,7 @@ A modern, responsive church website starter built with [Astro](https://astro.bui
 
 ## 🚀 Tech Stack
 
-- [Astro](https://astro.build/) `7.2.0`
+- [Astro](https://astro.build/) `7.2.8`
 - [Tailwind CSS](https://tailwindcss.com/) `^3.4.1`
 - [@astrojs/preact]([https://preactjs.com/](https://www.npmjs.com/package/@astrojs/preact)) `^6.0.2`
 - [TypeScript](https://www.typescriptlang.org/) `7.0.2`
