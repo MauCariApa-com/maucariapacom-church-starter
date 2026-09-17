@@ -32,7 +32,7 @@ A modern, responsive church website starter built with [Astro](https://astro.bui
 
 ### Prerequisites
 
-- Node.js `18.x` or higher
+- Node.js `24.x` or higher
 - npm or another compatible package manager
 
 ### Install dependencies
